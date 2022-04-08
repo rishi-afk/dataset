@@ -1,5 +1,5 @@
-data,marks
-"#### CLUSTERING ####
+data
+"""#### CLUSTERING ####
 library(stats)
 library(cluster)
 
@@ -48,4 +48,4 @@ clusters <- dbscan(data, eps = 0.45, MinPts = 5)
 clusters$cluster
 table(clusters$cluster, iris$Species)
 plot(clusters, data)
-",1
+"""
