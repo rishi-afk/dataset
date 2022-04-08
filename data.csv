@@ -1,0 +1,51 @@
+data,marks
+"#### CLUSTERING ####
+library(stats)
+library(cluster)
+
+str(iris)
+
+# remove all non-numerical values
+data <- subset(iris, select = c(1,2,3,4)) # or iris[,-5]
+data
+
+data_copy <- data
+wss <- sapply(1:15, function(x) { kmeans(data_copy, x)$tot.withinss })
+wss
+
+plot(1:15, wss, type = "b", xlab = "Clusters", ylab = "Total within-clusters sum of squares")
+
+# kmeans (partitioning based clustering)
+clusters <- kmeans(data, 3)
+clusters
+clusters$totss # Total sum of squares, it can be thought as a within cluster variation if we just have 1 cluster
+clusters$withinss # Within sum of squares, it is the within cluster variation for each cluster. We will have k withinss for k clusters
+clusters$tot.withinss # Total within sum of squares, sum of all the within sum of squares
+clusters$betweenss # totss - tot.withinss
+clusters$centers # centroids or center values of clusters
+clusters$cluster # clustering vector
+
+
+clusplot(data, clusters$cluster, lines = FALSE, color = TRUE, shade = TRUE)
+
+
+# Heiarchical Clustering (grouping in a top-down or bottom up approach)
+m <- apply(data, 2, mean) 
+s <- apply(data, 2, sd)
+data <- scale(data, m, s)
+
+clusters <- hclust(dist(data)) # Optional param method = "average"
+plot(clusters)
+
+clusterCut <- cutree(clusters, 3)
+table(clusterCut, iris$Species)
+
+
+# DBSCAN (Density based)
+library(fpc)
+set.seed(220)
+clusters <- dbscan(data, eps = 0.45, MinPts = 5)
+clusters$cluster
+table(clusters$cluster, iris$Species)
+plot(clusters, data)
+",1
