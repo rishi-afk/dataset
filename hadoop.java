@@ -1,3 +1,19 @@
+// Create Java project WordCount
+// Add libraries before finishing project init
+// Add external jars
+// Go to /usr/lib/hadoop and select all jar and add
+// Go to /usr/lib/hadoop/client and select all jars
+// create java class with name WordCount
+// copy code
+// export project as java/jar file in home/cloudera/WordCount.jar next finish
+// vi /home/cloudera/data.txt with random text content
+// hdfs dfs -mkdir /input
+// hdfs dfs -mkdir /output
+// hdfs dfs -put /home/cloudera/data.txt /input/
+// hadoop jar home/cloudera/WordCount.jar WordCount /input/data.txt /output
+// hdfs dfs -ls /output
+// hdfs dfs -cat /output/part0000...
+
 import java.io.IOException;
 import java.util.StringTokenizer;
 
